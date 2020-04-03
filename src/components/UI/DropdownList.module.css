@@ -1,0 +1,56 @@
+.dropdown {
+        position: relative;
+        font-size: 1.5rem;
+        color: #333;
+}
+
+/* https://codepen.io/RobotsPlay/pen/pyNLdL */
+
+.dropdownList {
+        padding: 12px;
+        background: #fff;
+        position: absolute;
+        /* top: 30px;
+        left: 2px;
+        right: 2px; */
+        box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.15);
+        /* transform-origin: 50% 0;
+        transform: scale(1, 0);
+        transition: transform 0.15s ease-in-out 0.15s;
+        max-height: 66vh;
+        overflow-y: scroll; */
+}
+
+.dropdownLabel {
+        display: block;
+        height: 30px;
+        background: #fff;
+        border: 1px solid #ccc;
+        padding: 6px 2.2rem;
+        line-height: 1;
+        font-size: 1.5rem;
+        cursor: pointer;
+        margin-right: 1.5rem;
+}
+
+.dropdownLabel::before {
+        content: '▼';
+        float: right;
+}
+
+.dropdownOption {
+        display: block;
+        padding: 8px 12px;
+        margin-bottom: 0.5rem;
+        font-size: 1.2rem;
+        text-decoration: none;
+        color: var(--blue);
+        font-weight: 800;
+        border: 1px solid var(--light-green);
+        opacity: 1;
+        transition: all 0.15s ease-in-out;
+}
+
+.dropdownOption:hover {
+        background-color: var(--light-green-2);
+}

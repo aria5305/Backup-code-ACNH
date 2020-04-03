@@ -1,0 +1,18 @@
+.AnimalItem {
+        padding: 1.5rem;
+        border: 1px solid #eee;
+        margin: 0.5rem;
+        border-radius: 2rem;
+        transition: all 0.3s;
+        cursor: pointer;
+}
+
+.AnimalItem:hover {
+        border: 1px solid var(--blue-green);
+}
+
+.content {
+        margin-top: 0.5rem;
+        font-size: 1.3rem;
+        color: var(--blue);
+}

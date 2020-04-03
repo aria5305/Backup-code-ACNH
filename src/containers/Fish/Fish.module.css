@@ -1,0 +1,27 @@
+.infoContainer {
+        display: flex;
+        justify-content: flex;
+        flex-direction: column;
+        align-items: center;
+        font-size: 1.5rem;
+}
+
+.info {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: left;
+}
+
+.info div {
+        margin-left: 2rem;
+}
+.calendar {
+        margin-top: 0.5rem;
+        flex-basis: 300px;
+}
+
+.calendarContainer {
+        margin-top: 1.5rem;
+        margin-bottom: 1.5rem;
+}

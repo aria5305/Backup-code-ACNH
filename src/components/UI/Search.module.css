@@ -1,0 +1,43 @@
+.container {
+        text-align: left;
+}
+
+.Search {
+        display: flex;
+        margin: 2rem;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        align-items: center;
+}
+
+.select:hover,
+.select:active {
+        border: 1px solid var(--light-green-2);
+}
+
+.hemisphereContainer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-left: 2rem;
+        margin-top: 1rem;
+}
+
+h2 {
+        margin-left: 2rem;
+        margin-top: 1rem;
+}
+
+.select {
+        padding: 1rem 1.5rem;
+        margin: 0 2rem 0 0.5rem;
+        transition: all 0.3s;
+}
+
+.select:focus {
+        outline: none;
+}
+
+.label {
+        font-size: 1.3rem;
+}

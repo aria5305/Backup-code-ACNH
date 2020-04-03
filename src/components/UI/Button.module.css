@@ -1,0 +1,17 @@
+.btn {
+        padding: 1rem 1.5rem;
+        background-color: transparent;
+        border: 2px solid var(--light-green-2);
+        margin: 0 0.5rem;
+        border-radius: 2rem;
+        transition: all 0.3s;
+        cursor: pointer;
+}
+
+.btn:hover {
+        background-color: var(--light-green-2);
+}
+
+.btn:focus {
+        outline: none;
+}
