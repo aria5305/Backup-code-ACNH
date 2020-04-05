@@ -21,9 +21,11 @@ class Fish extends Component{
             selectedFish: {}, 
             loading:true,
             show:false,
-            location:null,
-            time:null,
-            months:[]
+           
+                location:null,
+                time:null,
+                months:[]
+            
         }
     }
 
@@ -37,9 +39,6 @@ class Fish extends Component{
 
 
     componentDidMount(){
-
-        
-        
 
         let path = Object.keys(this.images);
         path = path.sort((a, b) => a.length < b.length? -1: 1);
@@ -107,20 +106,21 @@ class Fish extends Component{
             show:false})
     }
 
-    monthsHandler = (event) => {
-       
-        let selected = []; 
-        selected.push(event); 
 
-       
-        if(this.state.loading === false){
-            console.log(this.state.fish + 'Hello')
-        }
-    }
 
     checkUncheckHandler = (event) => {
         console.log(event.target.value)
-       
+    }
+
+    monthsHandler = (event) => {
+    
+        let options = event
+        let months = []
+        
+
+
+            console.log(options)
+        
     }
 
     locationHanlder  = (event) => {
@@ -128,7 +128,6 @@ class Fish extends Component{
     }
 
     timeHandler = (event) => {
-        console.log(event.target.value)
         let time = event.target.value.slice(0,2);
         if(time.indexOf(0) == "0") time = time.slice(1);
         this.setState({time:time})
@@ -151,51 +150,52 @@ class Fish extends Component{
         let months;
 
 
+
     if(this.state.loading === false){
+
         months = Object.keys(this.state.fish[0].Northern)
         
-        if(this.state.location || this.state.time || this.state.months.length > 0){
-            let filtered;
+            let fishes = this.state.fish.slice();
 
+            if(this.state.location || this.state.time || this.state.months.length < 0){
             //filter by location
-            if(this.state.location){
-            filtered = this.state.fish.filter(f => f.location == this.state.location); 
-            }
+                if(this.state.location){
+                fishes = fishes.filter(f => f.location == this.state.location); 
+                //    tempList.push(temp.map(f => f))
+                    ///filtered list once
+                }
+            
+                if(this.state.time){
+                    
+                    fishes = fishes.filter(f => {       
+                        if(f.time ==="All day"){
+                            return true;
+                        }
+
+                            let first = f.time.slice(0,2);
+                                if(first.charAt(first.length -1) ===":") first =first.slice(0,1);
+                            let second = f.time.slice(f.time.length - 5,f.time.length -3);
+                            
+
+                            first = parseInt(first)
+                            second = parseInt(second);
+                            let target = parseInt(this.state.time);
+
+                                if(first > second) {
+                                    return target >= first || target <= second; 
+
+                                }else{  
+                                    return target <= second && target >= first;
+                                }
+                    })
+
+                        
+                }
 
             //filter by time
-            if(this.state.time){
-            filtered = this.state.fish.filter(f => {
-                        
-            
-                    if(f.time ==="All day"){
-                        return true;
-                    }
+          
+        
 
-                        let first = f.time.slice(0,2);
-                            if(first.charAt(first.length -1) ===":") first =first.slice(0,1);
-                        let second = f.time.slice(f.time.length - 5,f.time.length -3);
-                        
-
-                        first = parseInt(first)
-                        second = parseInt(second);
-                        let target = parseInt(this.state.time);
-
-                            if(first > second) {
-                                return target >= first || target <= second ; 
-
-                            }else{  
-                                return target <= second && target >= first;
-                            }
-
-                    
-                    
-                  
-                    // 
-                    
-                    
-                    
-                })
-            }
 
 
             //filter by month(s)
@@ -208,7 +208,7 @@ class Fish extends Component{
             content = (
                 
                 <AnimalItems>
-                    {filtered.map((f,index) => { 
+                    {fishes.map((f,index) => { 
                         filteredIMG.push(f.id + ".jpg");
                         return (
                         <AnimalItem 
@@ -216,7 +216,7 @@ class Fish extends Component{
                         price={f.price}
                         clicked={
                             () => {
-                            this.showAnimalDetails(filtered,filteredIMG,index)}}>
+                            this.showAnimalDetails(fishes,filteredIMG,index)}}>
                             <img src={this.images[f.id +".jpg"]} alt={f.name} />
                      
                         </AnimalItem>
@@ -226,7 +226,7 @@ class Fish extends Component{
                 </AnimalItems>
             )
         
-        }else {
+            }else {
          
     
             content = (
@@ -248,9 +248,10 @@ class Fish extends Component{
                     </AnimalItems>
             )
         }
-
-
     }
+
+
+    
 
 
     if(this.state.show) {
@@ -264,15 +265,12 @@ class Fish extends Component{
                 if(this.state.selectedFish.activeMonths[months[i]] !== 0) 
                     active.push(months[i]);
             }
-            console.log(active);
-
-    
+         
             let calendar = (
                    
                 <Months>
                     {months.map(month =>{
 
-                  
                         if(active.includes(month)) {
                         
                         return <Month active
@@ -327,13 +325,12 @@ class Fish extends Component{
 
                 <Search 
                 clicked={this.switchingHemisphere}
-                changed={this.monthsHandler} 
                 currentHemisphere={this.state.currentHemisphere} 
                 months={months}
-                checked={this.checkUncheckHandler}
                 locationSelected ={this.locationHanlder}
                 clearFilters={this.clearFilterHandler}
-                timeSelected={this.timeHandler}/>
+                timeSelected={this.timeHandler}
+                monthSelected={this.monthsHandler}/>
    
                 {content}
             </div>
