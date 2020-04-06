@@ -216,14 +216,16 @@ class Fish extends Component{
                     if(this.state.currentHemisphere ==="Northern"){
                         fishes = fishes.filter(f => {           
                                 
-                      
-                            console.log(this.state.months);
-                           for(let i =0; i < this.state.months.length; i++){
-                            
-                                return f.Northern[this.state.months[i]] !== 0; //   
-                           }    
-                            })
+                            let x;
+                            for(const month of this.state.months){
+                               
+                               x= f.Northern[month] !== 0;
+                            }      
+                            return x;
+                        })
                         
+
+                            
 
                     }
                 }
