@@ -1,56 +1,115 @@
-.dropdown {
+svg {
+        /* display: block; */
+        width: 1em;
+        height: 1em;
+        fill: currentColor;
+}
+
+.select {
         position: relative;
-        font-size: 1.5rem;
-        color: #333;
+        display: inline-block;
+        width: 320px;
+}
+.select:focus {
+        outline: 0;
+}
+.select:focus .selection {
+        box-shadow: 0 0 1px 1px #00a9e0;
 }
 
-/* https://codepen.io/RobotsPlay/pen/pyNLdL */
+.label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+}
 
-.dropdownList {
-        padding: 12px;
+.selection {
+        position: relative;
+
+        border: 1px solid #999;
+        padding: 0.5rem 0.5rem;
+        margin: 0 2rem 0 0.5rem;
         background: #fff;
+        display: flex;
+        align-items: center;
+}
+
+.value {
+        position: relative;
+        display: inline-block;
+        padding: 5px 10px;
+}
+
+.multiple {
+        padding-right: 3rem;
+        margin-right: 5px;
+        background: #d9f2fb;
+        color: #00a9e0;
+}
+
+.delete {
         position: absolute;
-        /* top: 30px;
-        left: 2px;
-        right: 2px; */
-        box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.15);
-        /* transform-origin: 50% 0;
-        transform: scale(1, 0);
-        transition: transform 0.15s ease-in-out 0.15s;
-        max-height: 66vh;
-        overflow-y: scroll; */
-}
-
-.dropdownLabel {
+        top: -3px;
+        right: 0;
         display: block;
-        height: 30px;
-        background: #fff;
-        border: 1px solid #ccc;
-        padding: 6px 2.2rem;
-        line-height: 1;
-        font-size: 1.5rem;
+        padding: 10px;
+        font-size: 10px;
         cursor: pointer;
-        margin-right: 1.5rem;
 }
 
-.dropdownLabel::before {
-        content: '▼';
-        float: right;
+.placeholder {
+        padding: 5px 10px;
+        color: #898989;
 }
 
-.dropdownOption {
+.arrow {
+        position: absolute;
+        top: 2px;
+        right: 5px;
         display: block;
-        padding: 8px 12px;
-        margin-bottom: 0.5rem;
-        font-size: 1.2rem;
-        text-decoration: none;
-        color: var(--blue);
-        font-weight: 800;
-        border: 1px solid var(--light-green);
-        opacity: 1;
-        transition: all 0.15s ease-in-out;
+        padding: 10px;
+        font-size: 10px;
+        color: #898989;
 }
 
-.dropdownOption:hover {
-        background-color: var(--light-green-2);
+.options {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        border: solid #ddd;
+        border-width: 0 1px;
+        background: #fff;
+}
+
+.option {
+        padding: 10px 15px;
+        border-bottom: 1px solid #ddd;
+        cursor: pointer;
+}
+.option.selected {
+        border: 1px solid #00a9e0;
+        margin: -1px -1px 0;
+        background: #d9f2fb;
+}
+.option.focused {
+        background: #f5f5f5;
+}
+
+.checkbox {
+        content: '';
+        vertical-align: top;
+        display: inline-block;
+        width: 16px;
+        height: 16px;
+        padding: 2px;
+        border: 1px solid #ddd;
+        border-radius: 2px;
+        margin: 2px 12px 0 0;
+        color: #fff;
+        font-size: 10px;
+}
+.selected .checkbox {
+        border-color: #007da6;
+        background: #00a9e0;
 }

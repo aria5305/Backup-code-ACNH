@@ -34,12 +34,34 @@ class Search extends Component{
     
     
             <div className={classes.Search}>
-           
+{/*            
                     <DropdownList 
                         months={this.props.months} 
-                        changed={this.props.changed}
-                        checked={this.props.checked}
-                        buttonValue={"Check All"}/>
+                        changed={this.props.monthSelected}
+    
+                        buttonValue={"Check All"}/> */}
+
+                    <DropdownList
+                    placeholder="Select a month/months"
+                    clicked={this.props.monthSelected}
+                    deleted={this.props.monthDeleted}
+                    options={[
+                        {value:"jan"},
+                        {value:"feb"},
+                        {value:"mar"},
+                        {value:"apr"},
+                        {value:"may"},
+                        {value:"jun"},
+                        {value:"jul"},
+                        {value:"aug"},
+                        {value:"sep"},
+                        {value:"oct"},
+                        {value:"nov"},
+                        {value:"dec"},
+                    ]}
+                    multiple
+                    />
+                
 
     
                 <div>
