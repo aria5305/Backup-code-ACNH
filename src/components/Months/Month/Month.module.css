@@ -3,13 +3,14 @@
         padding: 1rem 1.5rem;
         border-radius: 1rem;
         font-size: 1.3rem;
-        border: 1px solid var(--light-green);
+        border: 1px solid var(--pink);
         background-color: transparent;
-        color: #555;
+        color: var(--pink);
         margin: 0;
 }
 
 .MonthActive {
-        background-color: var(--light-green-2);
+        border: 1px solid var(--pink);
+        background-color: var(--pink);
         color: black;
 }

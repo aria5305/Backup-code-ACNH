@@ -7,16 +7,6 @@ class Search extends Component{
 
 
 
-    constructor(props){
-        super(props)
-            this.state ={
-                check: "Check All", 
-                uncheck: "Uncheck All"
-            
-        }
-    }
-    
-
     render(){
     
 
@@ -25,21 +15,16 @@ class Search extends Component{
     
            <div className={classes.hemisphereContainer}>
         
-                <Button currentHemisphere={this.props.currentHemisphere} value="Northern Hemisphere" click={this.props.clicked}/>
+        
+                <Button Northern={this.props.Northern} value="Northern Hemisphere" click={this.props.clicked}/>
 
-                <Button currentHemisphere={this.props.currentHemisphere} value="Southern Hemisphere" click={this.props.clicked}/>
+                <Button Northern={!this.props.Northern} value="Southern Hemisphere" click={this.props.clicked}/>
                    
     
            </div>
     
     
             <div className={classes.Search}>
-{/*            
-                    <DropdownList 
-                        months={this.props.months} 
-                        changed={this.props.monthSelected}
-    
-                        buttonValue={"Check All"}/> */}
 
                     <DropdownList
                     placeholder="Select a month/months"
