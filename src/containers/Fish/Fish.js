@@ -20,12 +20,10 @@ class Fish extends Component{
             Southern:false,
             selectedFish: {}, 
             loading:true,
-            show:false,
-           
-                location:null,
-                time:null,
-                months:[]
-            
+            show:false,         
+            location:null,
+            time:null,
+            months:[]
         }
     }
 
@@ -113,15 +111,35 @@ class Fish extends Component{
     }
 
     monthsHandler = (event) => {
-    
-        let options = event
-        let months = []
-        
+        const {value} = event.currentTarget.dataset
 
 
-            console.log(options)
-        
+        this.setState(prevState => {
+            const [...values] = prevState.months
+            const index = values.indexOf(value);
+       
+            if(index === -1){
+                values.push(value)
+            }else{
+                values.splice(index,1)
+            }
+
+            return {months:values}
+        })        
     }
+
+    onMonthDeleteOption= (e) => {
+        const{value} = e.currentTarget.dataset
+
+        this.setState(prevState => {
+            const [...months] = prevState.months
+            const index = months.indexOf(value)
+
+            months.splice(index,1)
+            return {months:months}
+        })
+    }
+
 
     locationHanlder  = (event) => {
         this.setState({location:event.target.value})
@@ -157,14 +175,15 @@ class Fish extends Component{
         
             let fishes = this.state.fish.slice();
 
-            if(this.state.location || this.state.time || this.state.months.length < 0){
+            if(this.state.location || this.state.time || this.state.months.length > 0){
             //filter by location
                 if(this.state.location){
-                fishes = fishes.filter(f => f.location == this.state.location); 
+                    fishes = fishes.filter(f => f.location == this.state.location); 
                 //    tempList.push(temp.map(f => f))
                     ///filtered list once
                 }
-            
+            //filter by time
+          
                 if(this.state.time){
                     
                     fishes = fishes.filter(f => {       
@@ -192,15 +211,24 @@ class Fish extends Component{
                         
                 }
 
-            //filter by time
-          
-        
+                if(this.state.months.length > 0){
+
+                    if(this.state.currentHemisphere ==="Northern"){
+                        fishes = fishes.filter(f => {           
+                                
+                      
+                            console.log(this.state.months);
+                           for(let i =0; i < this.state.months.length; i++){
+                            
+                                return f.Northern[this.state.months[i]] !== 0; //   
+                           }    
+                            })
+                        
+
+                    }
+                }
 
 
-
-            //filter by month(s)
-
-            
 
             //list of IMG after filtering
             let filteredIMG=[];
@@ -249,6 +277,8 @@ class Fish extends Component{
             )
         }
     }
+    
+    
 
 
     
@@ -325,13 +355,15 @@ class Fish extends Component{
 
                 <Search 
                 clicked={this.switchingHemisphere}
+                monthDeleted={this.onMonthDeleteOption}
                 currentHemisphere={this.state.currentHemisphere} 
                 months={months}
                 locationSelected ={this.locationHanlder}
                 clearFilters={this.clearFilterHandler}
                 timeSelected={this.timeHandler}
                 monthSelected={this.monthsHandler}/>
-   
+
+             
                 {content}
             </div>
               
