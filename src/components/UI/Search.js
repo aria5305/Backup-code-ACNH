@@ -7,16 +7,6 @@ class Search extends Component{
 
 
 
-    constructor(props){
-        super(props)
-            this.state ={
-                check: "Check All", 
-                uncheck: "Uncheck All"
-            
-        }
-    }
-    
-
     render(){
     
 
@@ -25,21 +15,16 @@ class Search extends Component{
     
            <div className={classes.hemisphereContainer}>
         
-                <Button currentHemisphere={this.props.currentHemisphere} value="Northern Hemisphere" click={this.props.clicked}/>
+        
+                <Button Northern={this.props.Northern} value="Northern Hemisphere" click={this.props.clicked}/>
 
-                <Button currentHemisphere={this.props.currentHemisphere} value="Southern Hemisphere" click={this.props.clicked}/>
+                <Button Northern={!this.props.Northern} value="Southern Hemisphere" click={this.props.clicked}/>
                    
     
            </div>
     
     
             <div className={classes.Search}>
-{/*            
-                    <DropdownList 
-                        months={this.props.months} 
-                        changed={this.props.monthSelected}
-    
-                        buttonValue={"Check All"}/> */}
 
                     <DropdownList
                     placeholder="Select a month/months"
@@ -103,6 +88,19 @@ class Search extends Component{
                 <div>
                         <label  className={classes.label}>Location:</label>
 
+                    { (this.props.type === "insects") ? (
+                        <select className={classes.select} id="location" onChange={(event) => this.props.locationSelected(event)}>
+                            <option value="0" selected disabled>Select a location</option>
+                            <option>Flying</option>
+                            <option>Flowers(Hybrid)</option>
+                            <option>On white flowers</option>
+                            <option>On flowers</option>
+                            <option>Tree stumps</option>
+                            <option>Shaken tree</option>
+                            <option>On trees</option>
+                            <option>Snowballs</option>
+                            <option>Ground</option>
+                        </select>) : (
                         <select className={classes.select} id="location" onChange={(event) => this.props.locationSelected(event)}>
                             <option value="0" selected disabled>Select a location</option>
                             <option>River</option>
@@ -112,7 +110,9 @@ class Search extends Component{
                             <option>Pier</option>
                             <option>River Mouth</option>
                             <option>Ocean(Raining)</option>
-                        </select>
+                        </select>)
+                    }
+                       
     
                 </div>
 

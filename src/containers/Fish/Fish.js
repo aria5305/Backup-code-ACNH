@@ -17,7 +17,6 @@ class Fish extends Component{
             images:[],
             currentHemisphere:"Northern",
             Northern:true,
-            Southern:false,
             selectedFish: {}, 
             loading:true,
             show:false,         
@@ -48,15 +47,15 @@ class Fish extends Component{
             images:path
         })
        
-        console.log(this.state.images)
+
     }
 
     switchingHemisphere = (event) => {
         if(event.target.value === "Northern Hemisphere") 
-            this.setState({currentHemisphere:"Northern",Northern:true,Southern:false})
+            this.setState({currentHemisphere:"Northern",Northern:true})
 
         if(event.target.value ==="Southern Hemisphere") 
-            this.setState({currentHemisphere:"Southern", Northern:false,Southern:true})
+            this.setState({currentHemisphere:"Southern", Northern:false})
     }
 
 
@@ -94,20 +93,12 @@ class Fish extends Component{
             show:true
         })
 
-        console.log(this.state.currentHemisphere)
-
     }
 
     closeModal =() => {
         this.setState({
         
             show:false})
-    }
-
-
-
-    checkUncheckHandler = (event) => {
-        console.log(event.target.value)
     }
 
     monthsHandler = (event) => {
@@ -156,7 +147,8 @@ class Fish extends Component{
         this.setState({
             time:null,
             location:null,
-            months:[]
+            months:[],
+            Northern:true
         })
     }
   
@@ -216,16 +208,26 @@ class Fish extends Component{
                     if(this.state.currentHemisphere ==="Northern"){
                         fishes = fishes.filter(f => {           
                                 
-                            let x;
+                            let x=[]; 
                             for(const month of this.state.months){
                                
-                               x= f.Northern[month] !== 0;
-                            }      
-                            return x;
-                        })
-                        
+                               x.push(f.Northern[month] !== 0);
 
-                            
+                            }      
+                            return x.includes(true) ? true : false;
+                        })
+                    }
+                    else{
+                        fishes = fishes.filter(f => {           
+                                
+                            let x=[]; 
+                            for(const month of this.state.months){
+                               
+                               x.push(f.Southern[month] !== 0);
+
+                            }      
+                            return x.includes(true) ? true : false;
+                        })
 
                     }
                 }
@@ -242,6 +244,7 @@ class Fish extends Component{
                         filteredIMG.push(f.id + ".jpg");
                         return (
                         <AnimalItem 
+                        key={f.name}
                         name={f.name}
                         price={f.price}
                         clicked={
@@ -356,10 +359,10 @@ class Fish extends Component{
                 </M>
 
                 <Search 
+                type="fish"
                 clicked={this.switchingHemisphere}
                 monthDeleted={this.onMonthDeleteOption}
-                currentHemisphere={this.state.currentHemisphere} 
-                months={months}
+                Northern = {this.state.Northern}
                 locationSelected ={this.locationHanlder}
                 clearFilters={this.clearFilterHandler}
                 timeSelected={this.timeHandler}
