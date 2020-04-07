@@ -6,6 +6,7 @@ import Logo from '../UI/Logo';
 const navigation = (props) => (
     <nav className={classes.Navigation}>
         <Logo/>
+     
         <NavigationItems></NavigationItems>
     </nav>
 

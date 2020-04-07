@@ -12,8 +12,8 @@
 
 .btnActive,
 .btn:hover {
-        border: 1px solid var(--light-green);
-        background-color: var(--blue-green);
+        border: 1px solid var(--pink);
+        background-color: var(--dark-pink);
         color: #fff;
 }
 

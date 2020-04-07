@@ -88,6 +88,19 @@ class Search extends Component{
                 <div>
                         <label  className={classes.label}>Location:</label>
 
+                    { (this.props.type === "insects") ? (
+                        <select className={classes.select} id="location" onChange={(event) => this.props.locationSelected(event)}>
+                            <option value="0" selected disabled>Select a location</option>
+                            <option>Flying</option>
+                            <option>Flowers(Hybrid)</option>
+                            <option>On white flowers</option>
+                            <option>On flowers</option>
+                            <option>Tree stumps</option>
+                            <option>Shaken tree</option>
+                            <option>On trees</option>
+                            <option>Snowballs</option>
+                            <option>Ground</option>
+                        </select>) : (
                         <select className={classes.select} id="location" onChange={(event) => this.props.locationSelected(event)}>
                             <option value="0" selected disabled>Select a location</option>
                             <option>River</option>
@@ -97,7 +110,9 @@ class Search extends Component{
                             <option>Pier</option>
                             <option>River Mouth</option>
                             <option>Ocean(Raining)</option>
-                        </select>
+                        </select>)
+                    }
+                       
     
                 </div>
 

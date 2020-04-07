@@ -359,10 +359,10 @@ class Fish extends Component{
                 </M>
 
                 <Search 
+                type="fish"
                 clicked={this.switchingHemisphere}
                 monthDeleted={this.onMonthDeleteOption}
                 Northern = {this.state.Northern}
-                months={months}
                 locationSelected ={this.locationHanlder}
                 clearFilters={this.clearFilterHandler}
                 timeSelected={this.timeHandler}

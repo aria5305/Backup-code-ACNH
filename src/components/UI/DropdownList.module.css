@@ -14,7 +14,7 @@ svg {
         outline: 0;
 }
 .select:focus .selection {
-        box-shadow: 0 0 1px 1px var(--light-green-2);
+        box-shadow: 0 0 1px 1px var(--pink);
 }
 
 .label {
@@ -42,7 +42,7 @@ svg {
 .multiple {
         padding-right: 3rem;
         margin-right: 5px;
-        background: #d9f2fb;
+        background: var(--pink-2);
         color: var(--dark-gray);
         /* color: #00a9e0; */
 }
@@ -91,10 +91,10 @@ svg {
 .option.selected {
         border: 1px solid #d9f2fb;
         margin: -1px -1px 0;
-        background: var(--light-green);
+        background: var(--pink-2);
 }
 .option.focused {
-        background: rgba(178, 236, 221, 0.3);
+        background: var(--pink);
 }
 
 .checkbox {

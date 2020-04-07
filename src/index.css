@@ -18,14 +18,12 @@ body {
 }
 
 :root {
-        --light-green: #b2ecdd;
-        --light-green-2: #98e1cd;
+        /* --light-green: #11755a;
+        --light-green-2: #64bc44; */
         --dark-gray: #2e2e2e;
         --blue: #00a9e0;
         --blue-green: #7bcccc;
         --pink: #fcbec9;
-}
-
-.btnActive {
-        background-color: var(--light-green-2);
+        --pink-2: #ffe2e7;
+        --dark-pink: #e27092;
 }

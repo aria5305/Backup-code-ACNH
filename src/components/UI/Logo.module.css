@@ -1,9 +1,23 @@
 .LogoContainer {
         margin-right: auto;
         text-align: left;
+        position: relative;
 }
 
+.LogoContainer::after {
+        content: '';
+        position: absolute;
+        width: 4.5rem;
+        height: 4.5rem;
+        background-color: white;
+        border-radius: 50%;
+        top: 0.5rem;
+        left: 3rem;
+        z-index: 2;
+}
 .LogoImg {
         width: 15%;
         margin-left: 2.5rem;
+        position: relative;
+        z-index: 3;
 }

@@ -12,7 +12,7 @@
 
 .select:hover,
 .select:active {
-        border: 1px solid var(--light-green-2);
+        border: 1px solid var(--pink);
 }
 
 .hemisphereContainer {
