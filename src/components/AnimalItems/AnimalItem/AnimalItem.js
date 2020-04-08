@@ -5,7 +5,7 @@ const AnimalItem = props => (
 
     
     <div className={classes.AnimalItem} >
-        {props.children}
+        <div className={classes.children}>{props.children}</div>
         <p className={classes.content} onClick={props.clicked}>{props.name}</p>
         <p className={classes.content} onClick={props.clicked}>$ {props.price}</p>
     </div>

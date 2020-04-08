@@ -17,7 +17,13 @@
 
 .content {
         margin-top: 0.5rem;
+        /* padding-top: 1rem; */
+        /* border: 1px solid red; */
         font-size: 1.3rem;
         color: var(--blue);
         cursor: pointer;
+}
+
+.children {
+        margin-top: 1.5rem;
 }

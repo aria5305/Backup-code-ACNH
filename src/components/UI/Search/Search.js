@@ -31,7 +31,7 @@ class Search extends Component{
                     placeholder="Select a month/months"
                     clicked={this.props.monthSelected}
                     deleted={this.props.monthDeleted}
-                    types={this.props.types}
+                    type={this.props.type}
                     locationSelected={this.props.locationSelected}
                     timeSelected={this.props.timeSelected}
              
