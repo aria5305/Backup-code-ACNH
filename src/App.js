@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import './App.css';
 import {BrowserRouter, Route, Switch} from 'react-router-dom'; 
-import FrontPage from './components/UI/FrontPage';
+import FrontPage from './components/UI/FrontPage/FrontPage';
 import Fish from './containers/Fish/Fish'
 import Insects from './containers/Insects/Insects'
 class App extends Component{

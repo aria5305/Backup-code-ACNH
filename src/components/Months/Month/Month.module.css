@@ -5,12 +5,12 @@
         font-size: 1.3rem;
         border: 1px solid var(--pink);
         background-color: transparent;
-        color: var(--pink);
+        color: #eee;
         margin: 0;
 }
 
 .MonthActive {
-        border: 1px solid var(--pink);
+        border: 1px solid var(--dark-pink);
         background-color: var(--pink);
         color: black;
 }

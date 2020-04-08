@@ -1,0 +1,37 @@
+.checkmarkContainer {
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        width: 25px;
+        height: 25px;
+        border: 1px solid var(--blue-green);
+}
+
+.checkmarkContainer:hover ~ .checkmark {
+        opacity: 1;
+}
+
+.checkmark,
+.checkmarkActive {
+        position: absolute;
+        display: inline-block;
+        left: 50%;
+        top: -10%;
+        transform: translate(-50%) rotate(45deg);
+        height: 24px;
+        width: 12px;
+        border-bottom: 4px solid var(--blue-green);
+        border-right: 4px solid var(--blue-green);
+        z-index: 200;
+        cursor: pointer;
+        transition: all 0.3s;
+}
+
+.checkmark {
+        opacity: 0;
+}
+
+.checkmark:hover,
+.checkmarkActive {
+        opacity: 1;
+}

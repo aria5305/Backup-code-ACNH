@@ -1,8 +1,8 @@
 import React from 'react';
 // import NavigationItems from '../Navigation/NavigationItems/NavigationItems';
 
-import Hero from './Hero';
-import Navigation from '../Navigation/Navigation'
+import Hero from '../Hero/Hero';
+import Navigation from '../../Navigation/Navigation'
 
 const frontPage = (props) => (
 

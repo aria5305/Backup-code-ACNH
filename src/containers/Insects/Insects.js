@@ -3,8 +3,8 @@ import AnimalItem from '../../components/AnimalItems/AnimalItem/AnimalItem';
 import AnimalItems from '../../components/AnimalItems/AnimalItems';
 import Navigation from '../../components/Navigation/Navigation';
 import * as INSECTS_INFO from '../../assets/data/BugsInfo';
-import M from '../../components/UI/M'
-import Search from '../../components/UI/Search'
+import M from '../../components/UI/Modal/M'
+import Search from '../../components/UI/Search/Search'
 import Months from '../../components/Months/Months';
 import Month from '../../components/Months/Month/Month'
 import classes from '../Fish/Fish.module.css';

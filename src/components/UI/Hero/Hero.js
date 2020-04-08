@@ -1,5 +1,5 @@
 import React from 'react'; 
-import heroImage from '../../assets/Tom_Nook.png'
+import heroImage from '../../../assets/Tom_Nook.png'
 import classes from './Hero.module.css';
 
 const hero = props => (
