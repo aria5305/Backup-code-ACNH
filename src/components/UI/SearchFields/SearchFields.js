@@ -1,8 +1,9 @@
-import React, {Component, PropTypes} from 'react'; 
-import classes from './DropdownList.module.css'
+import React, {Component} from 'react'; 
+import classes from './SearchFields.module.css'
+import Button from '../Button/Button'
 
 
-class DropdownList extends Component {
+class SearchFields extends Component {
     constructor(props){
         super(props)
         this.state = {
@@ -10,11 +11,44 @@ class DropdownList extends Component {
             focusedValue: -1, 
             isFocused: false,
             isOpen:false,
+            default:false,
+            time:["00:00","01:00","02:00","03:00","04:00","05:00","06:00","07:00","08:00","09:00",
+            "10:00","11:00","12:00","13:00","14:00","15:00","16:00","17:00","18:00","19:00","20:00",
+            "21:00","22:00","23:00"],
+            locationInsects:["Flying","Flowers(Hybrid)","On white flowers","On flowers","Tree stumps",
+            "Shaken tree","On trees","Snowballs","Ground"],
+            locationFish:["River","Pond","Ocean","High altitude","Pier","River Mouth","Ocean(Raining)"],
+            timeSelected:"Select a time",
+            locationSelected:"Select a location"
+
+
         }
      
     }
+    
+    clearFilterHandler = () => {
+
+        this.setState({
+            values: [], 
+            focusedValue: -1, 
+            isFocused: false,
+            isOpen:false,
+            default:true,
+            timeSelected:"Select a time",
+            locationSelected:"Select a location"
+        })
+
+    }
 
     
+    timeSelectHandler = (event) => {
+      
+        this.setState({timeSelected:event.target.value})
+    }
+
+    locationSelecteHandler = (event) => {
+        this.setState({locationSelected:event.target.value})
+    }
 
     onFocus = () => {
         this.setState({isFocused:true})
@@ -79,7 +113,7 @@ class DropdownList extends Component {
                 values.splice(index,1)
             }
             // console.log(values)
-            return {values}
+            return {values,default:false}
            
         })
     }
@@ -169,17 +203,23 @@ class DropdownList extends Component {
         )
 
     }
+
+
+
     render(){
    
         const {isOpen} = this.state
   
         return (
+
+            <div className={classes.container}>
+                
               <div className ={classes.select}
                   tabIndex="0"
                   onFocus = {this.onFocus}
                   onBlur = {this.onBlur}
               >
-                  {/* <label className={classes.label}>{label}</label> */}
+
                   <div 
                   className={classes.selection}
                   onClick={this.onClick}>
@@ -193,9 +233,61 @@ class DropdownList extends Component {
                   </div>
                 {this.renderOptions()}
               </div>
+              
+
+              <div>
+                      
+                        <select
+                        value={this.state.timeSelected}
+                        className={classes.singleSelect} id="time" 
+                        onChange={(event) => {this.props.timeSelected(event); this.timeSelectHandler(event)}}>
+                            <option disabled>Select a time</option>
+                        {this.state.time.map(t => {
+                            return <option>{t}</option>
+                        })}
+                        </select>
+                </div>
+
+
+
+
+
+            
+                <div>
+                        {/* <label  className={classes.label}>Location:</label> */}
+
+                    { (this.props.type === "insects") ? (
+                        <select  value={this.state.locationSelected} className={classes.singleSelect} id="location" 
+                        onChange={(event) => {this.props.locationSelected(event)
+                                            this.locationSelecteHandler(event)}}>
+                             <option disabled>Select a location</option>
+                             {this.state.locationInsects.map(t => {
+                            return <option>{t}</option>
+                        })}
+
+
+                        </select>) : (
+                        <select 
+                        value={this.state.locationSelected}
+                            className={classes.singleSelect} 
+                            id="location" onChange={(event) => {this.props.locationSelected(event)
+                                this.locationSelecteHandler(event)}}>
+                            <option disabled>Select a location</option>
+                            {this.state.locationFish.map(t => {
+                            return <option>{t}</option>
+                        })}
+                        </select>)
+                    }
+            <Button class="btn" value="Clear filters" click={() => {this.clearFilterHandler(); this.props.doubleClick();}}/>
+               
+            </div>
+            </div>
         )
     }
 }
+
+export default SearchFields;
+
 
 const X = () => (
     <svg viewBox="0 0 16 16">
@@ -223,32 +315,4 @@ const ChevronDown = () => (
       <path d="M2.08578644,7.29289322 C1.69526215,7.68341751 1.69526215,8.31658249 2.08578644,8.70710678 C2.47631073,9.09763107 3.10947571,9.09763107 3.5,8.70710678 L8.20710678,4 L3.5,-0.707106781 C3.10947571,-1.09763107 2.47631073,-1.09763107 2.08578644,-0.707106781 C1.69526215,-0.316582489 1.69526215,0.316582489 2.08578644,0.707106781 L5.37867966,4 L2.08578644,7.29289322 Z" transform="translate(5.000000, 4.000000) rotate(-90.000000) translate(-5.000000, -4.000000) " />
     </svg>
   )
-// const dropdownList = props => {
-
-//     let item; 
-    
-//     if(props.months){
-    
-//         item = props.months.map(month => {
-//         month = month.charAt(0).toUpperCase() + month.slice(1);
-//         return <DropDownItem value={month} changed={props.changed} key={month}/>
-//     })
-//     }
-
-//     return (
-//     <div className={classes.DropDown} data-control="checkbox-dropdown">
-
-//       <label className={classes.dropdownLabel}>Select</label>
-          
-//         <div className={classes.dropdownList}>
-//             <button value={props.buttonValue}data-toggle="check-all" className={classes.dropdownOption}>
-//                {props.buttonValue}
-//             </button>
-            
-//             {item}
-//         </div>
-
-//     </div>
-//         )
-// }
-export default DropdownList
+ 

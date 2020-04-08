@@ -1,0 +1,60 @@
+.starContainer {
+        background-color: white;
+        position: absolute;
+        top: 50%;
+        right: 10%;
+        width: 25px;
+        height: 25px;
+        border: 1px solid var(--blue-green);
+        z-index: 300;
+}
+.star {
+        position: absolute;
+        right: -15%;
+        top: 5%;
+        display: inline-block;
+        width: 0;
+        height: 0;
+        cursor: pointer;
+        margin-left: 0.9em;
+        margin-right: 0.9em;
+        margin-bottom: 1.2em;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0.7em solid #eee;
+        border-left: 0.3em solid transparent;
+        z-index: 3;
+        /* Controlls the size of the stars. */
+        font-size: 1.2rem;
+        transition: all 0.3s;
+}
+.star::before,
+.star::after {
+        content: '';
+        display: block;
+        width: 0;
+        height: 0;
+        position: absolute;
+        top: 0.6em;
+        left: -1em;
+        border-right: 1em solid transparent;
+        border-bottom: 0.7em solid #eee;
+        border-left: 1em solid transparent;
+        transition: all 0.3s;
+        transform: rotate(-35deg);
+}
+
+.star::after {
+        transform: rotate(35deg);
+}
+
+.star:hover,
+.starActive {
+        border-bottom-color: var(--pink);
+}
+
+.star:hover::before,
+.star:hover::after,
+.starActive::before,
+.starActive::after {
+        border-bottom-color: var(--pink);
+}

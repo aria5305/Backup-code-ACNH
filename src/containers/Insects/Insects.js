@@ -3,11 +3,14 @@ import AnimalItem from '../../components/AnimalItems/AnimalItem/AnimalItem';
 import AnimalItems from '../../components/AnimalItems/AnimalItems';
 import Navigation from '../../components/Navigation/Navigation';
 import * as INSECTS_INFO from '../../assets/data/BugsInfo';
-import M from '../../components/UI/M'
-import Search from '../../components/UI/Search'
+import M from '../../components/UI/Modal/M'
+import Search from '../../components/UI/Search/Search'
 import Months from '../../components/Months/Months';
 import Month from '../../components/Months/Month/Month'
 import classes from '../Fish/Fish.module.css';
+import Star from '../../components/UI/Star/Star';
+import CheckMark from '../../components/UI/CheckMarks/CheckMark';
+
 
 class Insects extends Component{
     constructor(props){
@@ -22,7 +25,9 @@ class Insects extends Component{
             show:false,
             location:null,
             time:null,
-            months:[]
+            months:[],
+            showImportantOnly:false,
+            hideCaught:false
         }
     }
 
@@ -48,12 +53,12 @@ class Insects extends Component{
        
     }
 
-    switchHemipshere = (event) => {
-        if(event.target.value === "Northern Hemisphere")
-        this.setState({currentHemisphere:"Northern", Northern:true})
+    switchingHemisphere = (event) => {
+        if(event.target.value === "Northern Hemisphere") 
+            this.setState({currentHemisphere:"Northern",Northern:true})
 
-        if(event.target.value ==="Southern Hemisphere")
-        this.setState({currentHemisphere:"Southern", Northern:false})
+        if(event.target.value ==="Southern Hemisphere") 
+            this.setState({currentHemisphere:"Southern", Northern:false})
     }
 
 
@@ -137,9 +142,109 @@ class Insects extends Component{
             time:null,
             location:null,
             months:[],
-            Northern:true
+            Northern:true,
+            hideCaught:false,
+            showImportantOnly:false
         })
     }
+
+    markCaughtHandler = (arr,id) => {
+        let insects = arr.slice();
+        insects[id].caught = true; 
+        this.setState({
+            insects:insects
+        })
+    }
+
+    clearCaughtHandler = (arr,id) => {
+        let insects = arr.slice();
+        insects[id].caught = false; 
+        this.setState({
+            insects:insects
+        })
+       
+    }
+
+    onImportantHandler = (arr,id) => {
+
+        let insects = arr.slice();
+        insects[id].important = true; 
+      
+        this.setState({
+            insects:insects,
+        })
+    }
+
+    clearImportantHandler  = (arr,id) => {
+        let insects = arr.slice();
+        insects[id].important = false; 
+        this.setState({
+            insects:insects
+        })
+       
+    }
+
+    clearAllImportant = (arr) => {
+        let insects = arr.slice();
+        for(let i = 0; i < insects.length; i++){
+                insects[i].important = false;
+        }
+   this.setState({
+            insects:insects,
+            showImportantOnly:false,
+        })
+    }
+
+    showImportantHandler = () => {
+        this.setState(prevState =>({
+            showImportantOnly: !prevState.showImportantOnly
+        }))
+    }
+
+    hideCaughtHandler = () => {
+        this.setState(prevState => ({
+            hideCaught:!prevState.hideCaught
+        }))
+    }
+
+    renderUpdatedInsects = (arr) => {
+        let filteredIMG=[];
+
+        return (
+            <AnimalItems>
+            {arr.map((f,index) => { 
+                filteredIMG.push(f.id + ".jpg");
+                return (
+                <AnimalItem 
+                key={f.name}
+                name={f.name}
+                price={f.price}
+                important={f.important} 
+                
+                clicked={
+                    () => {
+                    this.showAnimalDetails(arr,filteredIMG,index)}}>
+    
+                    <img style={{cursor:"pointer"}} src={this.images[f.id +".jpg"]} alt={f.name} onClick={()=> this.showAnimalDetails(arr,filteredIMG,index)}/>
+                    <Star 
+                        clicked={() => this.onImportantHandler(arr,index)} 
+                        important={f.important} 
+                        uncheck={()=> this.clearImportantHandler(arr,index)}/>
+                      <CheckMark 
+                     clicked={() => this.markCaughtHandler(arr,index)}
+                     caught={arr[index].caught}
+                     uncheck={()=> this.clearCaughtHandler(arr,index)}/>
+                 
+                </AnimalItem>
+                )
+            })}
+    
+        </AnimalItems>
+        )
+    }
+
+
+
 
     render(){
         
@@ -153,7 +258,9 @@ class Insects extends Component{
 
             let insects = this.state.insects.slice(); 
 
-            if(this.state.location ||this.state.time ||this.state.months.length > 0 ){
+            if(this.state.location ||this.state.time ||this.state.months.length > 0 ||
+                this.state.showImportantOnly === true||
+                this.state.hideCaught === true){
 
                 if(this.state.location){
                     insects = insects.filter(i => i.location === this.state.location)
@@ -209,51 +316,26 @@ class Insects extends Component{
                     }
                 }
 
+                if(this.state.showImportantOnly === true) {
+                    insects = insects.filter(f => 
+                        f.important === true
+                    )
+                }
+            //filter caught = ignored caught
+                if(this.state.hideCaught === true) {
+                    insects = insects.filter (f => f.caught !== true)
+                }
             
 
-            let filteredIMG=[];
+           
 
-            content = (
+            content = this.renderUpdatedInsects(insects)
                 
-                <AnimalItems>
-                    {insects.map((i,index) => { 
-                        filteredIMG.push(i.id + ".jpg");
-                        return (
-                        <AnimalItem 
-                        key={i.name}
-                        name={i.name}
-                        price={i.price}
-                        clicked={
-                            () => {
-                            this.showAnimalDetails(insects,filteredIMG,index)}}>
-                            <img src={this.images[i.id +".jpg"]} alt={i.name} />
-                     
-                        </AnimalItem>
-                        )
-                    })}
-                 </AnimalItems>
-                 
-                )
             
+            }else if(this.state.showImportantOnly === false || this.state.hideCaught === false){
+                content = this.renderUpdatedInsects(insects)
             }else{
-                content = (
-                    <AnimalItems>
-                    {this.state.images.map((img,index) => {
-                        return (
-                            <AnimalItem 
-                            
-                            clicked={
-                                () => {
-                                this.showAnimalDetails(this.state.insects,this.state.images,index)}}
-    
-                            key={img} name={this.state.insects[index].name}
-                            price={this.state.insects[index].price}>
-                                <img src={this.images[this.state.images[index]]} alt={img} />
-                            </AnimalItem>
-                        )
-                    })}
-                        </AnimalItems>
-                )
+                content = this.renderUpdatedInsects(this.state.insects);
  
             }
         }
@@ -329,14 +411,23 @@ class Insects extends Component{
                 </M>
 
                 <Search 
-                type="insects"
-                clicked={this.switchHemipshere}
-                monthDeleted= {this.onMonthDeleteOption}
-                Northern = {this.state.Northern}
-                locationSelected={this.locationHandler}
-                clearFilters={this.clearFilterHandler}
-                timeSelected={this.timeHandler}
-                monthSelected={this.monthsHandler}/>
+                 type="insects"
+                 clicked={this.switchingHemisphere}
+                 Northern = {this.state.Northern}
+                
+                 clearFilters={this.clearFilterHandler}
+                 locationSelected ={this.locationHandler}
+                 timeSelected={this.timeHandler}
+                 monthSelected={this.monthsHandler}
+                 monthDeleted={this.onMonthDeleteOption}
+ 
+                 clearAllImportant={() => this.clearAllImportant(this.state.insects)}
+                 showImportantHandler={this.showImportantHandler}
+                 showImportantOnly={this.state.showImportantOnly}
+ 
+                 hideCaughtHandler = {this.hideCaughtHandler}
+                 hideCaught = {this.state.hideCaught}/>
+ 
 
    
                 {content}

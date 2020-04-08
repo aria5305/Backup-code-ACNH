@@ -1,18 +1,29 @@
-.AnimalItem {
+.AnimalItem,
+.AnimalItemActive {
         padding: 1.5rem;
         border: 1px solid #eee;
         margin: 0.5rem;
         border-radius: 2rem;
         transition: all 0.3s;
-        cursor: pointer;
+
+        position: relative;
+        z-index: 5;
 }
 
-.AnimalItem:hover {
+.AnimalItem:hover,
+.AnimalItemActive {
         border: 1px solid var(--blue-green);
 }
 
 .content {
         margin-top: 0.5rem;
+        /* padding-top: 1rem; */
+        /* border: 1px solid red; */
         font-size: 1.3rem;
         color: var(--blue);
+        cursor: pointer;
+}
+
+.children {
+        margin-top: 1.5rem;
 }

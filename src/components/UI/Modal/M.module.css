@@ -5,7 +5,8 @@
         width: 80%;
         border: 3px solid var(--pink);
         left: 15%;
-        top: 5%;
+        top: 25%;
+        padding: 2.5rem 0rem 0rem 0rem;
         /* box-sizing: border-box; */
         transition: all 0.3s ease-out;
 }

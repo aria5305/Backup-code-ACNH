@@ -1,7 +1,7 @@
 import React, {Component} from 'react'; 
 import classes from './M.module.css';
-import Backdrop from './Backdrop'; 
-import Aux from '../../hoc/Auxillary'
+import Backdrop from '../Backdrop/Backdrop'; 
+import Aux from '../../../hoc/Auxillary'
 
 const translate0 = 'translateY(0)';
 const translateUp = 'translateY(-100vh)';

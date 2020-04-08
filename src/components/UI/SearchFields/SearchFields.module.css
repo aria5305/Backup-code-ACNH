@@ -9,6 +9,8 @@ svg {
         position: relative;
         display: inline-block;
         width: 30rem;
+        margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
 }
 .select:focus {
         outline: 0;
@@ -81,6 +83,7 @@ svg {
         border: solid #ddd;
         border-width: 0 1px;
         background: #fff;
+        z-index: 200;
 }
 
 .option {
@@ -114,4 +117,44 @@ svg {
         border-color: #007da6;
         /* border-color: var(--light-green-2); */
         background: #00a9e0;
+}
+
+/* .select:hover,
+.select:active {
+        border: 1px solid var(--pink);
+} */
+
+.hemisphereContainer {
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        margin-left: 2rem;
+        margin-top: 1rem;
+}
+
+h2 {
+        margin-left: 2rem;
+        margin-top: 1rem;
+}
+
+.singleSelect {
+        padding: 1rem 1.5rem;
+        margin: 0 2rem 0 0.5rem;
+        transition: all 0.3s;
+}
+
+.singleSelect:focus {
+        outline: none;
+}
+
+.label {
+        font-size: 1.3rem;
+}
+
+.container {
+        display: flex;
+        justify-content: flex-start;
+        flex-wrap: wrap;
+        align-items: center;
+        padding: 0.5rem;
 }

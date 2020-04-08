@@ -1,18 +1,21 @@
-.btn {
+.btn,
+.btnActive {
         padding: 1rem 1.5rem;
-        background-color: transparent;
         border: 1px solid var(--pink);
-        margin: 0 0.5rem;
+        margin: 0.5rem 0.5rem;
         /* border-radius: 2rem; */
         transition: all 0.3s;
         cursor: pointer;
-        color: var(--pink);
         font-weight: 800;
+}
+
+.btn {
+        background-color: transparent;
+        color: var(--pink);
 }
 
 .btnActive,
 .btn:hover {
-        border: 1px solid var(--pink);
         background-color: var(--dark-pink);
         color: #fff;
 }
