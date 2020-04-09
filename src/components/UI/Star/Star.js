@@ -4,7 +4,6 @@ import classes from './Star.module.css'
 
 const star = (props) => {
 
-    console.log(props.important)
 
     return (props.important ?  
         <div className={classes.starContainer}>

@@ -1,7 +1,8 @@
 .AnimalItems {
         display: grid;
-        margin-top: 1.5rem;
+
         grid-auto-flow: row;
         grid-gap: 1.5rem;
+        margin: 1.5rem 1rem 1rem 1rem;
         grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
 }

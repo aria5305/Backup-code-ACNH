@@ -1,18 +1,34 @@
-.AnimalItem,
-.AnimalItemActive {
-        padding: 1.5rem;
-        border: 1px solid #eee;
-        margin: 0.5rem;
-        border-radius: 2rem;
+.AnimalItem {
+        padding: 0.7rem 1.5rem 0.7rem 1.5rem;
+        /* padding-top: 0.7rem; */
+        border-radius: 1rem;
         transition: all 0.3s;
-
         position: relative;
         z-index: 5;
 }
 
-.AnimalItem:hover,
-.AnimalItemActive {
-        border: 1px solid var(--blue-green);
+.AnimalItem {
+        border: 1px solid #eee;
+}
+
+.leavingSoon {
+        border: 2px solid var(--pink);
+}
+
+.comingSoon {
+        border: 2px solid var(--blue);
+}
+
+.hidden {
+        opacity: 0;
+        cursor: default;
+}
+.warning {
+        color: var(--dark-pink);
+}
+
+.notice {
+        color: var(--blue);
 }
 
 .content {

@@ -27,7 +27,8 @@ class Insects extends Component{
             time:null,
             months:[],
             showImportantOnly:false,
-            hideCaught:false
+            hideCaught:false,
+            currentMonth:null
         }
     }
 
@@ -44,11 +45,14 @@ class Insects extends Component{
         let path = Object.keys(this.images);
         path = path.sort((a, b) => a.length < b.length? -1: 1);
 
+        const today = new Date(); 
+        const month = today.getMonth(); 
 
         this.setState({
             insects:INSECTS_INFO.bugsapi,
             loading:false,
-            images:path
+            images:path,
+            currentMonth:month
         })
        
     }
@@ -148,44 +152,73 @@ class Insects extends Component{
         })
     }
 
-    markCaughtHandler = (arr,id) => {
-        let insects = arr.slice();
-        insects[id].caught = true; 
-        this.setState({
-            insects:insects
-        })
-    }
+    markCaughtHandler = (name) => {
 
-    clearCaughtHandler = (arr,id) => {
-        let insects = arr.slice();
-        insects[id].caught = false; 
-        this.setState({
-            insects:insects
-        })
-       
-    }
+        let original = this.state.insects.slice();
+        
+        // fish[id].important = true; 
+        
+        original.map(f => {
+            if(f.name === name){
+                f.caught = true
+        }
+        });
 
-    onImportantHandler = (arr,id) => {
-
-        let insects = arr.slice();
-        insects[id].important = true; 
+        this.setState({insects :original})
       
-        this.setState({
-            insects:insects,
-        })
     }
 
-    clearImportantHandler  = (arr,id) => {
-        let insects = arr.slice();
-        insects[id].important = false; 
-        this.setState({
-            insects:insects
-        })
+    clearCaughtHandler = (name) => {
+        let original = this.state.insects.slice();
+        
+        // fish[id].important = true; 
+        
+        original.map(f => {
+            if(f.name === name){
+                f.caught = false
+        }
+        });
+
+        this.setState({insects:original})
        
     }
 
-    clearAllImportant = (arr) => {
-        let insects = arr.slice();
+    onImportantHandler = (name) => {
+        
+        let original = this.state.insects.slice();
+        
+        // fish[id].important = true; 
+        
+        original.map(f => {
+            if(f.name === name){
+                f.important = true
+        }
+        });
+
+        this.setState({insects:original})
+
+   
+    }
+
+    clearImportantHandler  = (name) => {
+         
+
+         
+        let original = this.state.insects.slice();
+
+        original.map(f => {
+            if(f.name === name){
+                f.important = false
+        }
+        });
+
+        this.setState({insects:original})
+
+       
+    }
+
+    clearAllImportant = () => {
+        let insects = this.state.insects.slice();
         for(let i = 0; i < insects.length; i++){
                 insects[i].important = false;
         }
@@ -210,41 +243,89 @@ class Insects extends Component{
     renderUpdatedInsects = (arr) => {
         let filteredIMG=[];
 
+       
+        const months = Object.keys(this.state.insects[0].Northern);
+
+        const nextMonth =  months[this.state.currentMonth + 1];//apr
+        const currentMonth =  months[this.state.currentMonth];//apr
+      
+    
+
         return (
+            
             <AnimalItems>
             {arr.map((f,index) => { 
                 filteredIMG.push(f.id + ".jpg");
-                return (
-                <AnimalItem 
-                key={f.name}
-                name={f.name}
-                price={f.price}
-                important={f.important} 
-                
-                clicked={
-                    () => {
-                    this.showAnimalDetails(arr,filteredIMG,index)}}>
+
+                                            
+                if(f[this.state.currentHemisphere][currentMonth]  === 1 
+                    && f[this.state.currentHemisphere][nextMonth] === 0)
     
-                    <img style={{cursor:"pointer"}} src={this.images[f.id +".jpg"]} alt={f.name} onClick={()=> this.showAnimalDetails(arr,filteredIMG,index)}/>
-                    <Star 
-                        clicked={() => this.onImportantHandler(arr,index)} 
-                        important={f.important} 
-                        uncheck={()=> this.clearImportantHandler(arr,index)}/>
-                      <CheckMark 
-                     clicked={() => this.markCaughtHandler(arr,index)}
-                     caught={arr[index].caught}
-                     uncheck={()=> this.clearCaughtHandler(arr,index)}/>
-                 
-                </AnimalItem>
-                )
-            })}
-    
+                return  this.renderAnimalItem(f,index,arr,filteredIMG,"leavingSoon")
+
+                else if (f[this.state.currentHemisphere][currentMonth]  === 0 
+                    && f[this.state.currentHemisphere][nextMonth] === 1)
+                return  this.renderAnimalItem(f,index,arr,filteredIMG,"comingSoon")
+
+                else  return this.renderAnimalItem(f,index,arr,filteredIMG,"AnimalItem")
+
+
+                // {(f[this.state.currentHemisphere][currentMonth]  === 0 
+                // && f[this.state.currentHemisphere][nextMonth] === 1)?
+
+                // <h1>I am Coming next month</h1> :
+                // null}
+
+                })}          
         </AnimalItems>
         )
     }
 
 
+    renderAnimalItem = (f,index,arr,filteredIMG,className) => {
+        return (
+            <AnimalItem 
+            class={className}
+            key={f.name}
+            name={f.name}
+            price={f.price}
+            important={f.important} 
+            
+            clicked={
+                () => {
+                this.showAnimalDetails(arr,filteredIMG,index)}}>
+               <img style={{cursor:"pointer"}} src={this.images[f.id +".jpg"]} alt={f.name} onClick={()=> this.showAnimalDetails(arr,filteredIMG,index)}/>
+                <Star 
+                    clicked={() => this.onImportantHandler(f.name)} 
+                    important={f.important} 
+                    uncheck={()=> this.clearImportantHandler(f.name)}/>
+                  <CheckMark 
+                 clicked={() => this.markCaughtHandler(f.name)}
+                 caught={arr[index].caught}
+                 uncheck={()=> this.clearCaughtHandler(f.name)}/>
+             
+            </AnimalItem>
+            )
+        
+    }
 
+    
+
+    setCurrentTimeAsFilter = () => {
+        let today = new Date();
+        let month = today.getMonth();
+        let time = today.getHours();
+
+        const months = Object.keys(this.state.insects[0].Northern)
+        
+        let updateMonths =[];
+        updateMonths.push(months[month]);
+
+
+        this.setState({months:updateMonths, time:time})
+
+    }
+    
 
     render(){
         
@@ -415,6 +496,10 @@ class Insects extends Component{
                  clicked={this.switchingHemisphere}
                  Northern = {this.state.Northern}
                 
+                 currentTime={this.state.time}
+                 currentMonth={this.state.months}
+                 setCurrent={this.setCurrentTimeAsFilter}
+
                  clearFilters={this.clearFilterHandler}
                  locationSelected ={this.locationHandler}
                  timeSelected={this.timeHandler}

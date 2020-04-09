@@ -34,6 +34,8 @@ class Search extends Component{
                     type={this.props.type}
                     locationSelected={this.props.locationSelected}
                     timeSelected={this.props.timeSelected}
+                 
+                    setCurrent={this.props.setCurrent}
              
                     options={[
                         {value:"jan"},

@@ -27,6 +27,7 @@ class Fish extends Component{
             months:[],
             showImportantOnly:false,
             hideCaught:false,
+            currentMonth:null
         }
     }
 
@@ -44,13 +45,17 @@ class Fish extends Component{
         let path = Object.keys(this.images);
         path = path.sort((a, b) => a.length < b.length? -1: 1);
 
+        const today = new Date(); 
+        const month = today.getMonth(); 
+     
 
+    
         this.setState({
             fish:FISH_INFO.fishapi,
             loading:false,
-            images:path
+            images:path,
+            currentMonth:month
         })
-       
     }
 
     switchingHemisphere = (event) => {
@@ -151,10 +156,12 @@ class Fish extends Component{
             time:null,
             location:null,
             months:[],
-            Northern:true,
+            // Northern:true,
             showImportantOnly:false,
             hideCaught:false,
         })
+
+        console.log(this.state)
 
         console.log(this.state.months);
     
@@ -163,46 +170,73 @@ class Fish extends Component{
     }
 
 
-    markCaughtHandler = (arr,id) => {
-        let fish = arr.slice();
-        fish[id].caught = true; 
-        this.setState({
-            fish:fish
-        })
+    markCaughtHandler = (name) => {
+
+        let original = this.state.fish.slice();
+        
+        // fish[id].important = true; 
+        
+        original.map(f => {
+            if(f.name === name){
+                f.caught = true
+        }
+        });
+
+        this.setState({fish:original})
+      
     }
 
-    clearCaughtHandler = (arr,id) => {
-        let fish = arr.slice();
-        fish[id].caught = false; 
-        this.setState({
-            fish:fish
-        })
+    clearCaughtHandler = (name) => {
+        let original = this.state.fish.slice();
+        
+        // fish[id].important = true; 
+        
+        original.map(f => {
+            if(f.name === name){
+                f.caught = false
+        }
+        });
+
+        this.setState({fish:original})
        
     }
 
-    onImportantHandler = (arr,id) => {
+    onImportantHandler = (name) => {
+        
+        let original = this.state.fish.slice();
+        
+        // fish[id].important = true; 
+        
+        original.map(f => {
+            if(f.name === name){
+                f.important = true
+        }
+        });
 
-        let fish = arr.slice();
-        fish[id].important = true; 
-      
-        this.setState({
-            fish:fish,
-          
-        })
+        this.setState({fish:original})
+
    
     }
 
-    clearImportantHandler  = (arr,id) => {
-        let fish = arr.slice();
-        fish[id].important = false; 
-        this.setState({
-            fish:fish
-        })
+    clearImportantHandler  = (name) => {
+         
+
+         
+        let original = this.state.fish.slice();
+
+        original.map(f => {
+            if(f.name === name){
+                f.important = false
+        }
+        });
+
+        this.setState({fish:original})
+
        
     }
 
-    clearAllImportant = (arr) => {
-        let fish = arr.slice();
+    clearAllImportant = () => {
+        let fish = this.state.fish.slice();
         for(let i = 0; i < fish.length; i++){
                 fish[i].important = false;
         }
@@ -224,45 +258,91 @@ class Fish extends Component{
         }))
     }
 
+    renderAnimalItem = (f,index,arr,filteredIMG,className) => {
+          
+        return (
+            <AnimalItem 
+            class={className}
+            key={f.name}
+            name={f.name}
+            price={f.price}
+            important={f.important} 
+            
+            clicked={
+                () => {
+                this.showAnimalDetails(arr,filteredIMG,index)}}>
+               <img style={{cursor:"pointer"}} src={this.images[f.id +".jpg"]} alt={f.name} onClick={()=> this.showAnimalDetails(arr,filteredIMG,index)}/>
+                <Star 
+                    clicked={() => this.onImportantHandler(f.name)} 
+                    important={f.important} 
+                    uncheck={()=> this.clearImportantHandler(f.name)}/>
+                  <CheckMark 
+                 clicked={() => this.markCaughtHandler(f.name)}
+                 caught={arr[index].caught}
+                 uncheck={()=> this.clearCaughtHandler(f.name)}/>
+             
+            </AnimalItem>
+            )
+        
+    }
+
     renderUpdatedFish = (arr) => {
         let filteredIMG=[];
 
+       
+        const months = Object.keys(this.state.fish[0].Northern);
+
+        const nextMonth =  months[this.state.currentMonth + 1];//apr
+        const currentMonth =  months[this.state.currentMonth];//apr
+      
+    
+
         return (
+            
             <AnimalItems>
             {arr.map((f,index) => { 
                 filteredIMG.push(f.id + ".jpg");
-                return (
-                <AnimalItem 
-                key={f.name}
-                name={f.name}
-                price={f.price}
-                important={f.important} 
-                
-                clicked={
-                    () => {
-                    this.showAnimalDetails(arr,filteredIMG,index)}}>
+
+                                            
+                if(f[this.state.currentHemisphere][currentMonth]  === 1 
+                    && f[this.state.currentHemisphere][nextMonth] === 0)
     
-                    <img style={{cursor:"pointer"}} src={this.images[f.id +".jpg"]} alt={f.name} onClick={()=> this.showAnimalDetails(arr,filteredIMG,index)}/>
-                    <Star 
-                        clicked={() => this.onImportantHandler(arr,index)} 
-                        important={f.important} 
-                        uncheck={()=> this.clearImportantHandler(arr,index)}/>
-                      <CheckMark 
-                     clicked={() => this.markCaughtHandler(arr,index)}
-                     caught={arr[index].caught}
-                     uncheck={()=> this.clearCaughtHandler(arr,index)}/>
-                 
-                </AnimalItem>
-                )
-            })}
-    
+                return  this.renderAnimalItem(f,index,arr,filteredIMG,"leavingSoon")
+
+                else if (f[this.state.currentHemisphere][currentMonth]  === 0 
+                    && f[this.state.currentHemisphere][nextMonth] === 1)
+                return  this.renderAnimalItem(f,index,arr,filteredIMG,"comingSoon")
+
+                else  return this.renderAnimalItem(f,index,arr,filteredIMG,"AnimalItem")
+
+
+                // {(f[this.state.currentHemisphere][currentMonth]  === 0 
+                // && f[this.state.currentHemisphere][nextMonth] === 1)?
+
+                // <h1>I am Coming next month</h1> :
+                // null}
+
+                })}          
         </AnimalItems>
         )
     }
 
+    setCurrentTimeAsFilter = () => {
+        let today = new Date();
+        let month = today.getMonth();
+        let time = today.getHours();
+
+        const months = Object.keys(this.state.fish[0].Northern)
+        
+        let updateMonths =[];
+        updateMonths.push(months[month]);
+
+
+        this.setState({months:updateMonths, time:time})
+
+    }
     
-     
-  
+
 
     render(){
         
@@ -274,6 +354,7 @@ class Fish extends Component{
 
     if(this.state.loading === false){
        
+       
         months = Object.keys(this.state.fish[0].Northern)
         
             let fishes = this.state.fish.slice();
@@ -282,7 +363,7 @@ class Fish extends Component{
                 this.state.time || 
                 this.state.months.length > 0 ||
                 this.state.showImportantOnly === true||
-                this.state.hideCaught === true){
+                this.state.hideCaught === true || this.state.showImportantOnly === false || this.state.hideCaught === false){
             //filter by location
                 if(this.state.location){
                     fishes = fishes.filter(f => f.location == this.state.location); 
@@ -357,12 +438,6 @@ class Fish extends Component{
 
                 content = this.renderUpdatedFish(fishes)
 
-                //if one of this is false => then return to the previous fishes filters
-            }else if(this.state.showImportantOnly === false || this.state.hideCaught === false){
-                content = this.renderUpdatedFish(fishes)
-                //if both of these are false, then shold render the whole thing
-            // }else if(this.state.showImportantOnly === false && this.state.hideCaught === false){
-            //     content = this.renderUpdatedFish(this.state.fish)
               }else {
 
                 content = this.renderUpdatedFish(this.state.fish)
@@ -450,6 +525,10 @@ class Fish extends Component{
                 type="fish"
                 clicked={this.switchingHemisphere}
                 Northern = {this.state.Northern}
+
+                currentTime={this.state.time}
+                currentMonth={this.state.months}
+                setCurrent={this.setCurrentTimeAsFilter}
                
                 clearFilters={this.clearFilterHandler}
                 locationSelected ={this.locationHanlder}

@@ -19,7 +19,7 @@ class SearchFields extends Component {
             "Shaken tree","On trees","Snowballs","Ground"],
             locationFish:["River","Pond","Ocean","High altitude","Pier","River Mouth","Ocean(Raining)"],
             timeSelected:"Select a time",
-            locationSelected:"Select a location"
+            locationSelected:"Select a location",
 
 
         }
@@ -204,8 +204,22 @@ class SearchFields extends Component {
 
     }
 
+    setCurrentToField = () => {
+        let today = new Date();
+        let month = today.getMonth();
+       
+        let target = this.props.options[month].value;
+        let info = [];
+        info.push(target);
+
+        let time = today.getHours();
+    
+        
+        this.setState({values: info,timeSelected:this.state.time[time]})
+    }
 
 
+  
     render(){
    
         const {isOpen} = this.state
@@ -243,7 +257,7 @@ class SearchFields extends Component {
                         onChange={(event) => {this.props.timeSelected(event); this.timeSelectHandler(event)}}>
                             <option disabled>Select a time</option>
                         {this.state.time.map(t => {
-                            return <option>{t}</option>
+                            return <option key={t}>{t}</option>
                         })}
                         </select>
                 </div>
@@ -255,14 +269,14 @@ class SearchFields extends Component {
             
                 <div>
                         {/* <label  className={classes.label}>Location:</label> */}
-
+                          
                     { (this.props.type === "insects") ? (
                         <select  value={this.state.locationSelected} className={classes.singleSelect} id="location" 
                         onChange={(event) => {this.props.locationSelected(event)
                                             this.locationSelecteHandler(event)}}>
                              <option disabled>Select a location</option>
                              {this.state.locationInsects.map(t => {
-                            return <option>{t}</option>
+                            return <option key= {t}>{t}</option>
                         })}
 
 
@@ -274,11 +288,19 @@ class SearchFields extends Component {
                                 this.locationSelecteHandler(event)}}>
                             <option disabled>Select a location</option>
                             {this.state.locationFish.map(t => {
-                            return <option>{t}</option>
+                            return <option key={t}>{t}</option>
                         })}
                         </select>)
                     }
-            <Button class="btn" value="Clear filters" click={() => {this.clearFilterHandler(); this.props.doubleClick();}}/>
+            <Button class="btn" value="Set filters to current time" 
+                    click={() => 
+                    {this.props.setCurrent(); 
+                    this.setCurrentToField()}}/>
+                    
+            <Button class="btn" value="Clear filters" 
+                    click={() => {
+                        this.clearFilterHandler(); 
+                        this.props.doubleClick();}}/>
                
             </div>
             </div>
