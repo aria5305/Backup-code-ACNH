@@ -2,17 +2,18 @@
         padding: 0;
         list-style: none;
         display: flex;
-        margin-top: 2rem;
+        margin-top: 0rem;
         /* border: 1px solid blue; */
         text-align: left;
         height: 100%;
+        position: relative;
         flex-flow: column;
 }
 
 @media (min-width: 500px) {
         .NavigationItems {
+                margin-top: -2rem;
                 flex-flow: row;
                 justify-content: flex-end;
-                margin-right: 2rem;
         }
 }

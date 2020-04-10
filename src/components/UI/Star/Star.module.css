@@ -58,3 +58,9 @@
 .starActive::after {
         border-bottom-color: var(--pink);
 }
+
+@media (min-width: 500px) {
+        .starContainer {
+                right: 10%;
+        }
+}
