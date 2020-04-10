@@ -1,6 +1,5 @@
 .NavigationItem {
-        margin: 10px 0;
-
+        margin: 1rem 0;
         display: block;
         width: 100%;
         font-size: 1.5rem;
@@ -10,14 +9,14 @@
         color: black;
         text-decoration: none;
         width: 100%;
-        /* background-color: red; */
         display: block;
 }
 
 .NavigationItem a:hover,
 .NavigationItem a:active,
 .NavigationItem a.active {
-        color: var(--white);
+        color: var(--blue);
+        font-weight: 800;
 }
 
 @media (min-width: 500px) {
@@ -29,6 +28,9 @@
                 width: auto;
         }
 
+        .NavigationItem:first-of-type {
+                display: inline-block;
+        }
         .NavigationItem a {
                 color: #fff;
                 height: 100%;

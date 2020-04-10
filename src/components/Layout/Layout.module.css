@@ -1,0 +1,13 @@
+.Layout {
+        height: 100vh;
+        /* border: 1px solid red; */
+}
+/* }
+.Content {
+        margin-top: 10vh;
+} */
+@media (min-width: 500px) {
+        .Content {
+                margin-top: 0;
+        }
+}

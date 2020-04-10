@@ -1,23 +1,40 @@
-.LogoContainer {
-        margin-right: auto;
-        text-align: left;
-        position: relative;
+.LogoImg {
+        width: 70%;
+        position: absolute;
+        z-index: 3;
+        top: 3.5rem;
+        left: 50%;
+        transform: translate(-50%, -50%);
 }
 
-.LogoContainer::after {
+.Logoborder {
+        position: relative;
+        width: 7.5rem;
+        height: 7.5rem;
+        background-color: var(--blue-green);
+        z-index: 2;
+        top: 3%;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2rem;
+}
+
+.Logoborder::after {
         content: '';
         position: absolute;
         width: 4.5rem;
         height: 4.5rem;
         background-color: white;
         border-radius: 50%;
-        top: 0.5rem;
-        left: 3rem;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
         z-index: 2;
 }
-.LogoImg {
-        width: 15%;
-        margin-left: 2.5rem;
-        position: relative;
-        z-index: 3;
+
+@media (min-width: 500px) {
+        .Logoborder {
+                top: 1rem;
+                left: 30%;
+        }
 }

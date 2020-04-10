@@ -26,7 +26,7 @@ class Search extends Component{
     
             <div className={classes.Search}>
 
-                    <SearchFields
+                <SearchFields
                     doubleClick={this.props.clearFilters}
                     placeholder="Select a month/months"
                     clicked={this.props.monthSelected}
@@ -58,6 +58,7 @@ class Search extends Component{
                 </div>
                 
                
+               <div className={classes.filtersBTN}>
                 {!this.props.showImportantOnly ? (<Button 
                     showImportant ={this.props.showImportantOnly}
                     value="Show important Only"
@@ -76,7 +77,7 @@ class Search extends Component{
               
              
                 <Button class="btn" value="Clear all important" click={this.props.clearAllImportant}/>
-                
+                </div>
                
             </div>
         

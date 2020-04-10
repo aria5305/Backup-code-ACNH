@@ -1,49 +1,120 @@
 .Hero {
-        background-image: linear-gradient(
-                        to right bottom,
-                        rgba(255, 255, 255, 0.3),
-                        rgba(255, 255, 255, 0.4)
-                ),
-                url('../../../assets/hero.jpg');
-        background-size: cover;
-        background-position: center;
-        height: 90vh;
-        width: auto;
-        position: relative;
+        padding-top: 5rem;
+        height: 100vh;
+        background-color: #ffefe0;
+}
+.NookBox {
+        padding-top: 5rem;
+}
+.tomNook {
+        display: none;
 }
 
 .heroText {
-        /* padding-top: 25%; */
         font-weight: 300;
-        color: var(--blue-green);
+        color: var(--pink);
         padding: 2rem;
-        background-color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 2rem;
+        margin-top: 50%;
+        transform: translateY(-50%);
         letter-spacing: 0.5rem;
-        font-size: 5rem;
-
+        font-size: 3rem;
         z-index: 0;
-        /* background-color: white; */
 }
-
 .intro {
-        position: absolute;
-        top: 25%;
-        transform: translateX(-50%);
+        position: relative;
+        border-radius: 50%;
+        width: 20rem;
+        height: 20rem;
+        margin: 0 auto;
         padding: 2rem;
-        left: 50%;
         background-color: rgba(255, 255, 255, 0.7);
 }
 
-.tomNook {
-        position: absolute;
-        top: 30%;
-        right: 10%;
-        z-index: 2;
+.descriptionBox {
+        width: 30rem;
+        margin: 2rem auto 0rem auto;
 }
 
+/* border: 1px solid red; */
 .description {
-        /* font-weight: 800; */
-        font-size: 2rem;
-        margin: 1rem 0;
+        margin-top: 1rem;
+        font-size: 1.5rem;
+        text-align: center;
+}
+@media (min-width: 500px) {
+        .Hero {
+                height: 90vh;
+        }
+        .NookBox {
+                padding-top: 10rem;
+        }
+        .tomNook {
+                display: block;
+                position: absolute;
+                top: 20%;
+                right: 10%;
+                z-index: 2;
+        }
+
+        .heroText {
+                margin-top: 20%;
+                background-color: rgba(255, 255, 255, 0.9);
+                /* margin-bottom: 2rem; */
+                font-size: 5rem;
+        }
+
+        .intro {
+                width: 45rem;
+                height: 20rem;
+
+                border-radius: 1.5rem;
+        }
+
+        .description {
+                font-size: 1.5rem;
+                text-align: left;
+        }
+}
+
+@media (min-width: 700px) {
+        .tomNook {
+                left: 60%;
+        }
+        .descriptionBox {
+                /* border: 1px solid red; */
+                padding: 0 1.5rem;
+                width: 40rem;
+        }
+}
+
+@media (min-width: 900px) {
+        .intro {
+                width: 70rem;
+                height: 20rem;
+                border-radius: 1.5rem;
+        }
+
+        .heroText {
+                margin-top: 10%;
+        }
+        .descriptionBox {
+                width: 50rem;
+                padding: 0 2.5rem;
+                /* transform: translateX(); */
+        }
+}
+
+@media (min-width: 1300px) {
+        .NookBox {
+                position: relative;
+        }
+        .tomNook {
+                left: 63.5%;
+                top: 7%;
+        }
+        .descriptionBox {
+                width: 70rem;
+                padding: 0 2.5rem;
+                /* transform: translateX(); */
+        }
 }

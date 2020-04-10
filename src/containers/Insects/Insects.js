@@ -485,7 +485,7 @@ class Insects extends Component{
         return (
             <div>
                 
-             <Navigation/>
+        
                
                 <M show={this.state.show} clicked={this.closeModal}>
                        {insectInfo}
