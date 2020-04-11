@@ -49,20 +49,38 @@ class Insects extends Component{
         const month = today.getMonth(); 
 
         this.setState({
-            insects:INSECTS_INFO.bugsapi,
-            loading:false,
+            // // insects:INSECTS_INFO.bugsapi,
+            // loading:false,
             images:path,
             currentMonth:month
         })
+
+        this.getHemisphere();
+        this.getLocalStorage();
        
     }
 
     switchingHemisphere = (event) => {
-        if(event.target.value === "Northern Hemisphere") 
-            this.setState({currentHemisphere:"Northern",Northern:true})
+        if(event.target.value === "Northern Hemisphere") {
+            if(this.state.currentHemisphere === "Northern"){
+                return ;
+            }else{
+                this.setHemisphere("Northern");
+                this.setState(({currentHemisphere:"Northern", Northern:true}))
+            }
+            
+        }else{
 
-        if(event.target.value ==="Southern Hemisphere") 
-            this.setState({currentHemisphere:"Southern", Northern:false})
+            if(this.state.currentHemisphere === "Southern"){
+                return ;
+            }else{
+                this.setHemisphere("Southern");
+                this.setState(({currentHemisphere:"Southern", Northern:false}))
+            }
+           
+           
+        }
+
     }
 
 
@@ -146,7 +164,7 @@ class Insects extends Component{
             time:null,
             location:null,
             months:[],
-            Northern:true,
+           
             hideCaught:false,
             showImportantOnly:false
         })
@@ -163,7 +181,7 @@ class Insects extends Component{
                 f.caught = true
         }
         });
-
+        this.setLocalStorage(original);
         this.setState({insects :original})
       
     }
@@ -178,7 +196,7 @@ class Insects extends Component{
                 f.caught = false
         }
         });
-
+        this.setLocalStorage(original);
         this.setState({insects:original})
        
     }
@@ -194,16 +212,14 @@ class Insects extends Component{
                 f.important = true
         }
         });
-
+        this.setLocalStorage(original);
         this.setState({insects:original})
 
    
     }
 
     clearImportantHandler  = (name) => {
-         
-
-         
+        
         let original = this.state.insects.slice();
 
         original.map(f => {
@@ -211,7 +227,7 @@ class Insects extends Component{
                 f.important = false
         }
         });
-
+        this.setLocalStorage(original);
         this.setState({insects:original})
 
        
@@ -326,6 +342,65 @@ class Insects extends Component{
 
     }
     
+    getHemisphere = () => {
+        let storage = null;
+        let storageLocal = JSON.parse(window.localStorage.getItem('myHemisphere'));
+
+
+        if(storageLocal === null){
+            storage = "Northern"
+            this.setState({currentHemisphere:storage,Northern:true})
+            
+            // console.log("StorageLocal", storage);
+        }
+
+        if(storageLocal!==null){
+            storage = storageLocal
+            console.log(storage, "getting Hemisphere")
+            if(storage ==="Northern"){
+                this.setState({currentHemisphere:storage,Northern:true})
+            }else{
+                this.setState({currentHemisphere:storage,Northern:false})}
+            }
+        
+
+    }
+
+    setHemisphere = (myHemisphere) => {
+        
+        let storageLocal = JSON.parse(window.localStorage.getItem('myHemisphere'));
+
+        console.log(storageLocal, "Storage")
+        console.log(myHemisphere, "myHemipshere")
+        localStorage.setItem('myHemisphere', JSON.stringify(myHemisphere));
+    }
+    getLocalStorage = () => {
+        let storage = [];
+        let storageLocal = JSON.parse(window.localStorage.getItem('myInsects'));
+      
+        if(storageLocal === null ){
+          storageLocal = INSECTS_INFO.bugsapi.slice(); 
+          this.setState({Insects:storageLocal,loading:false})
+        }
+
+        if(storageLocal!== null){
+            if(storageLocal !== [] && storage.length === 0){
+                for(let i = 0; i< storageLocal.length;i++){
+                    storage.push(storageLocal[i]);
+                }
+                console.log(storage,"I am storage");
+               this.setState({insects:storage,loading:false})
+            }
+        }
+    }
+    
+    setLocalStorage = (list) => {
+        localStorage.setItem('myInsects', JSON.stringify(list));
+    }
+
+    setHemisphereLocalStorage= (Hemisphere) => {
+        localStorage.setItem('myHemisphere', JSON.stringify(Hemisphere));
+    }
 
     render(){
         
@@ -485,7 +560,7 @@ class Insects extends Component{
         return (
             <div>
                 
-             <Navigation/>
+        
                
                 <M show={this.state.show} clicked={this.closeModal}>
                        {insectInfo}
