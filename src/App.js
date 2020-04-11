@@ -1,22 +1,24 @@
 import React,{Component} from 'react';
 import './App.css';
-import {BrowserRouter, Route, Switch} from 'react-router-dom'; 
-import FrontPage from './components/UI/FrontPage/FrontPage';
+import {HashRouter, Route, Switch} from 'react-router-dom'; 
+import Hero from './components/UI/Hero/Hero';
 import Fish from './containers/Fish/Fish'
 import Insects from './containers/Insects/Insects'
+import Layout from './components/Layout/Layout'
 class App extends Component{
   render(){
     return (
-    <BrowserRouter>
-      <div className="App">
-     
+    <HashRouter>
+      <div>
+      <Layout>
         <Switch> 
             <Route path='/fish'component={Fish}/>
             <Route path='/insects'component={Insects}/>
-            <Route path='/' exact component={FrontPage} /> 
-        </Switch>
+            <Route path='/' exact component={Hero} /> 
+          </Switch>
+        </Layout>
       </div>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 }

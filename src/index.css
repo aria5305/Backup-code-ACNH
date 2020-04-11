@@ -14,6 +14,7 @@ html {
 }
 
 body {
+        /* height: 100%; */
         font-family: 'Open Sans', sans-serif;
 }
 
@@ -21,9 +22,10 @@ body {
         /* --light-green: #11755a;
         --light-green-2: #64bc44; */
         --dark-gray: #2e2e2e;
-        --blue: #00a9e0;
+        --blue: #08a4d8;
         --blue-green: #7bcccc;
-        --pink: #fcbec9;
+        /* --pink: #fcbec9; */
+        --pink: #fca6b6;
         --pink-2: #ffe2e7;
         --dark-pink: #e27092;
 }

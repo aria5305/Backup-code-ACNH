@@ -7,8 +7,7 @@ import Navigation from '../../Navigation/Navigation'
 const frontPage = (props) => (
 
             <div>
-            
-                <Navigation/>
+
 
                 <main>
                     <Hero />

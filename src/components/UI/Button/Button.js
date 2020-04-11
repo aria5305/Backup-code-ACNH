@@ -9,7 +9,7 @@ import classes from './Button.module.css'
  const button = props => {   
    
           
-        if(props.Northern || props.hideCaught || props.showImportant) {
+        if(props.Northern || props.hideCaught || props.showImportant|| props.class==="active") {
           return <button value={props.value} onClick={e => {props.click(e)}} 
           className={classes.btn + " " + classes.btnActive}>
             {props.value}
@@ -20,9 +20,12 @@ import classes from './Button.module.css'
           className={classes.btn}>
             {props.value}      
           </button>
+        
         }
 
-      }
+        }
+
+      
     
 
 

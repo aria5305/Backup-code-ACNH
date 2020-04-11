@@ -292,15 +292,27 @@ class SearchFields extends Component {
                         })}
                         </select>)
                     }
-            <Button class="btn" value="Set filters to current time" 
+            <Button class="active" value="Set filters to current time" 
                     click={() => 
                     {this.props.setCurrent(); 
                     this.setCurrentToField()}}/>
-                    
-            <Button class="btn" value="Clear filters" 
-                    click={() => {
-                        this.clearFilterHandler(); 
-                        this.props.doubleClick();}}/>
+
+{console.log(this.state.locationSelected,this.state.timeSelected,this.state.values)}
+            {(this.state.locationSelected !== "Select a location" || 
+              this.state.timeSelected !== "Select a time" || 
+              this.state.values.length > 0) ?
+                (<Button class="active" value="Clear filters" 
+                        click={() => {
+                            this.clearFilterHandler(); 
+                            this.props.doubleClick();}}/>
+                ):
+                (<Button class="btn" value="Clear filters" 
+                click={() => {
+                    this.clearFilterHandler(); 
+                    this.props.doubleClick();}}/>
+                )
+                   
+                }
                
             </div>
             </div>
