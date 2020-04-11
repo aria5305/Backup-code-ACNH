@@ -34,7 +34,7 @@
 
 @media (min-width: 500px) {
         .Logoborder {
-                top: 1.5rem;
+                top: 1.5vh;
                 left: 50%;
         }
 }
