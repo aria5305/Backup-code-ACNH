@@ -173,15 +173,11 @@ class Fish extends Component{
             time:null,
             location:null,
             months:[],
-            // Northern:true,
             showImportantOnly:false,
             hideCaught:false,
         })
 
-        console.log(this.state)
-
-        console.log(this.state.months);
-    
+     
        
 
     }
