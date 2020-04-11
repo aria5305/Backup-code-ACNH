@@ -17,8 +17,9 @@ class Fish extends Component{
         this.state = {
             fish:[],
             images:[],
-            currentHemisphere:"Northern",
+            currentHemisphere:null,
             Northern:true,
+            // activeButton:true,
             selectedFish: {}, 
             loading:true,
             show:false,         
@@ -42,28 +43,44 @@ class Fish extends Component{
 
     componentDidMount(){
 
+       
         let path = Object.keys(this.images);
         path = path.sort((a, b) => a.length < b.length? -1: 1);
 
         const today = new Date(); 
         const month = today.getMonth(); 
      
-
-    
         this.setState({
-            fish:FISH_INFO.fishapi,
-            loading:false,
+         
             images:path,
             currentMonth:month
         })
+        this.getHemisphere();
+        this.getLocalStorage();
+        
     }
 
     switchingHemisphere = (event) => {
-        if(event.target.value === "Northern Hemisphere") 
-            this.setState({currentHemisphere:"Northern",Northern:true})
+        if(event.target.value === "Northern Hemisphere") {
+            if(this.state.currentHemisphere === "Northern"){
+                return ;
+            }else{
+                this.setHemisphere("Northern");
+                this.setState(({currentHemisphere:"Northern", Northern:true}))
+            }
+            
+        }else{
 
-        if(event.target.value ==="Southern Hemisphere") 
-            this.setState({currentHemisphere:"Southern", Northern:false})
+            if(this.state.currentHemisphere === "Southern"){
+                return ;
+            }else{
+                this.setHemisphere("Southern");
+                this.setState(({currentHemisphere:"Southern", Northern:false}))
+            }
+           
+           
+        }
+
     }
 
 
@@ -181,7 +198,8 @@ class Fish extends Component{
                 f.caught = true
         }
         });
-
+        
+        this.setLocalStorage(original);
         this.setState({fish:original})
       
     }
@@ -196,7 +214,7 @@ class Fish extends Component{
                 f.caught = false
         }
         });
-
+        this.setLocalStorage(original);
         this.setState({fish:original})
        
     }
@@ -212,7 +230,7 @@ class Fish extends Component{
                 f.important = true
         }
         });
-
+        this.setLocalStorage(original);
         this.setState({fish:original})
 
    
@@ -229,9 +247,8 @@ class Fish extends Component{
                 f.important = false
         }
         });
-
+        this.setLocalStorage(original);
         this.setState({fish:original})
-
        
     }
 
@@ -315,13 +332,6 @@ class Fish extends Component{
 
                 else  return this.renderAnimalItem(f,index,arr,filteredIMG,"AnimalItem")
 
-
-                // {(f[this.state.currentHemisphere][currentMonth]  === 0 
-                // && f[this.state.currentHemisphere][nextMonth] === 1)?
-
-                // <h1>I am Coming next month</h1> :
-                // null}
-
                 })}          
         </AnimalItems>
         )
@@ -341,7 +351,67 @@ class Fish extends Component{
         this.setState({months:updateMonths, time:time})
 
     }
+
+
+    getHemisphere = () => {
+        let storage = null;
+        let storageLocal = JSON.parse(window.localStorage.getItem('myHemisphere'));
+
+
+        if(storageLocal === null){
+            storage = "Northern"
+            this.setState({currentHemisphere:storage,Northern:true})
+            
+            // console.log("StorageLocal", storage);
+        }
+
+        if(storageLocal!==null){
+            storage = storageLocal
+            console.log(storage, "getting Hemisphere")
+            if(storage ==="Northern"){
+                this.setState({currentHemisphere:storage,Northern:true})
+            }else{
+                this.setState({currentHemisphere:storage,Northern:false})}
+            }
+        
+
+    }
+
+    setHemisphere = (myHemisphere) => {
+        
+        let storageLocal = JSON.parse(window.localStorage.getItem('myHemisphere'));
+
+        console.log(storageLocal, "Storage")
+        console.log(myHemisphere, "myHemipshere")
+        localStorage.setItem('myHemisphere', JSON.stringify(myHemisphere));
+    }
+    getLocalStorage = () => {
+        let storage = [];
+        let storageLocal = JSON.parse(window.localStorage.getItem('myFish'));
+      
+        if(storageLocal === null ){
+          storageLocal = FISH_INFO.fishapi.slice(); 
+          this.setState({fish:storageLocal,loading:false})
+        }
+
+        if(storageLocal!== null){
+            if(storageLocal !== [] && storage.length === 0){
+                for(let i = 0; i< storageLocal.length;i++){
+                    storage.push(storageLocal[i]);
+                }
+                console.log(storage,"I am storage");
+               this.setState({fish:storage,loading:false})
+            }
+        }
+    }
     
+    setLocalStorage = (list) => {
+        localStorage.setItem('myFish', JSON.stringify(list));
+    }
+
+    setHemisphereLocalStorage= (Hemisphere) => {
+        localStorage.setItem('myFish', JSON.stringify(Hemisphere));
+    }
 
 
     render(){
@@ -442,6 +512,7 @@ class Fish extends Component{
 
                 content = this.renderUpdatedFish(this.state.fish)
             }
+
         }
            
 
@@ -523,7 +594,7 @@ class Fish extends Component{
                 <Search 
                 type="fish"
                 clicked={this.switchingHemisphere}
-                Northern = {this.state.Northern}
+               Northern={this.state.Northern}
 
                 currentTime={this.state.time}
                 currentMonth={this.state.months}
