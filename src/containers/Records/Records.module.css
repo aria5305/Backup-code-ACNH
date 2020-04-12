@@ -1,0 +1,16 @@
+.Records {
+        width: 100%;
+        /* border: 1px solid red;
+} */
+}
+.recordImages {
+        width: 70%;
+        -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+        filter: grayscale(100%);
+        cursor: pointer;
+        transition: all 0.3s;
+}
+.recordImages:hover,
+.recordImagesBought {
+        filter: grayscale(0%);
+}

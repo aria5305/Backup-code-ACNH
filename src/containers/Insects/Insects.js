@@ -110,7 +110,7 @@ class Insects extends Component{
             show:true
         })
 
-        console.log(info)
+        // console.log(info)
 
     }
 
@@ -164,7 +164,7 @@ class Insects extends Component{
             time:null,
             location:null,
             months:[],
-           
+            Northern:true,
             hideCaught:false,
             showImportantOnly:false
         })
@@ -356,7 +356,7 @@ class Insects extends Component{
 
         if(storageLocal!==null){
             storage = storageLocal
-            console.log(storage, "getting Hemisphere")
+            // console.log(storage, "getting Hemisphere")
             if(storage ==="Northern"){
                 this.setState({currentHemisphere:storage,Northern:true})
             }else{
@@ -370,8 +370,8 @@ class Insects extends Component{
         
         let storageLocal = JSON.parse(window.localStorage.getItem('myHemisphere'));
 
-        console.log(storageLocal, "Storage")
-        console.log(myHemisphere, "myHemipshere")
+        // console.log(storageLocal, "Storage")
+        // console.log(myHemisphere, "myHemipshere")
         localStorage.setItem('myHemisphere', JSON.stringify(myHemisphere));
     }
     getLocalStorage = () => {
@@ -388,7 +388,7 @@ class Insects extends Component{
                 for(let i = 0; i< storageLocal.length;i++){
                     storage.push(storageLocal[i]);
                 }
-                console.log(storage,"I am storage");
+                // console.log(storage,"I am storage");
                this.setState({insects:storage,loading:false})
             }
         }
