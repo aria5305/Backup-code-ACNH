@@ -297,7 +297,7 @@ class SearchFields extends Component {
                     {this.props.setCurrent(); 
                     this.setCurrentToField()}}/>
 
-{/* {console.log(this.state.locationSelected,this.state.timeSelected,this.state.values)} */}
+
             {(this.state.locationSelected !== "Select a location" || 
               this.state.timeSelected !== "Select a time" || 
               this.state.values.length > 0) ?

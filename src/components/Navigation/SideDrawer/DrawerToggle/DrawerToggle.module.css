@@ -20,6 +20,7 @@
 }
 
 @media (min-width: 700px) {
+=======
         .DrawerToggle {
                 display: none;
         }
