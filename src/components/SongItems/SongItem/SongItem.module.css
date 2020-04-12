@@ -1,0 +1,19 @@
+.SongItem {
+        padding-top: 2rem;
+        padding-bottom: 1rem;
+}
+
+.songHeader {
+        color: var(--dark-gray);
+        font-weight: 300;
+        font-size: 1.8rem;
+        margin-top: 1rem;
+}
+
+.secret {
+        background-color: var(--pink-2);
+}
+
+.secretText {
+        color: var(--dark-pink);
+}

@@ -1,0 +1,11 @@
+.SongsContainer {
+        width: inherit;
+        height: auto;
+        padding: 0 3rem;
+        margin-top: 3rem;
+        text-align: center;
+        display: grid;
+        grid-gap: 1.5rem;
+        grid-template-columns: repeat(10, 1fr);
+        grid-template-rows: repeat(auto, 1fr);
+}
