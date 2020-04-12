@@ -10,7 +10,6 @@ class App extends Component{
   render(){
     return (
     <HashRouter>
-      {/* <div> */}
       <Layout>
         <Switch> 
             <Route path='/records'component={Records}/>
