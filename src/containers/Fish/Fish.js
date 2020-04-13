@@ -363,7 +363,7 @@ class Fish extends Component{
 
         if(storageLocal!==null){
             storage = storageLocal
-
+            // console.log(storage, "getting Hemisphere")
             if(storage ==="Northern"){
                 this.setState({currentHemisphere:storage,Northern:true})
             }else{
@@ -377,7 +377,8 @@ class Fish extends Component{
         
         let storageLocal = JSON.parse(window.localStorage.getItem('myHemisphere'));
 
-
+        // console.log(storageLocal, "Storage")
+        // console.log(myHemisphere, "myHemipshere")
         localStorage.setItem('myHemisphere', JSON.stringify(myHemisphere));
     }
     getLocalStorage = () => {
@@ -394,7 +395,7 @@ class Fish extends Component{
                 for(let i = 0; i< storageLocal.length;i++){
                     storage.push(storageLocal[i]);
                 }
-
+                // console.log(storage,"I am storage");
                this.setState({fish:storage,loading:false})
             }
         }

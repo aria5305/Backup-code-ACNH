@@ -125,9 +125,12 @@ class Records extends Component{
           content =  this.renderRecords(this.state.records);
         }
     
-        return <div className={classes.Records}>
-                {content}
+        return <div>
+                    <div className={classes.Records}>
+                    {content}
           
+                    </div>
+
                 </div>
 
     }
